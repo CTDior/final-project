@@ -45,7 +45,7 @@ routes.get("/group-members", async (req, res) => {
     const client = await getClient();
     const results = await client
       .db()
-      .collection<GroupMember>("group-members")
+      .collection<GroupMember>("groupmembers")
       .find()
       .toArray();
     res.json(results);
@@ -71,3 +71,20 @@ routes.post("/groups", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+// routes.post("/group-members", async (req, res) => {
+//     const newMember: GroupMember = req.body;
+//     try {
+//       const client = await getClient();
+//       const result = await client
+//         .db()
+//         .collection<GroupMember>("groups")
+//         .insertOne(newMember);
+//       newMember._id = result.insertedId;
+//       res.status(201);
+//       res.json(newMember);
+//     } catch (err) {
+//       console.error("ERROR", err);
+//       res.status(500).json({ message: "Internal Server Error" });
+//     }
+//   });
