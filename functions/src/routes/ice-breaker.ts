@@ -23,12 +23,13 @@ routes.get("/groups", async (req, res) => {
 
 routes.get("/groups/:id", async (req, res) => {
   const id = req.params.id;
+
   try {
     const client = await getClient();
     const result = await client
       .db()
       .collection<Group>("groups")
-      .find({ _id: new ObjectId(id) });
+      .findOne({ _id: new ObjectId(id) });
     if (result) {
       res.json(result);
     } else {
