@@ -1,9 +1,11 @@
+/** @format */
+
 import express from "express";
 import { Group, GroupMember } from "../models/IceBreaker";
 import { getClient } from "../db";
 import { ObjectId } from "mongodb";
 
-export const routes = express.Router();
+const routes = express.Router();
 
 routes.get("/groups", async (req, res) => {
   try {
@@ -20,7 +22,6 @@ routes.get("/groups", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
 routes.get("/groups/:id", async (req, res) => {
   const id = req.params.id;
 
@@ -72,20 +73,3 @@ routes.post("/groups", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-// routes.post("/group-members", async (req, res) => {
-//     const newMember: GroupMember = req.body;
-//     try {
-//       const client = await getClient();
-//       const result = await client
-//         .db()
-//         .collection<GroupMember>("groups")
-//         .insertOne(newMember);
-//       newMember._id = result.insertedId;
-//       res.status(201);
-//       res.json(newMember);
-//     } catch (err) {
-//       console.error("ERROR", err);
-//       res.status(500).json({ message: "Internal Server Error" });
-//     }
-//   });
