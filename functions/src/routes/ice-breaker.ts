@@ -69,7 +69,9 @@ routes.post("/groups", async (req, res) => {
     res.status(201);
     res.json(newGroup);
   } catch (err) {
-    console.error("ERROR!!", err);
+    console.error("ERROR", err);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+export default routes;
