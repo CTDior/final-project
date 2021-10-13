@@ -43,12 +43,19 @@ routes.get("/groups/:id", async (req, res) => {
 });
 
 routes.get("/group-members", async (req, res) => {
+  const groupId: string = req.query.groupId as string;
+  let query: any = {}; // What does this do?
+
+  if (groupId) {
+    query = { groupId: groupId };
+  }
+
   try {
     const client = await getClient();
     const results = await client
       .db()
       .collection<GroupMember>("groupmembers")
-      .find()
+      .find(query)
       .toArray();
     res.json(results);
   } catch (err) {
