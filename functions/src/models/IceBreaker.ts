@@ -1,34 +1,29 @@
 import { ObjectId } from "mongodb";
 
-
-
 interface Answer {
-    answer: string
+  answer: string;
 }
-
-
 
 export interface HardCodedQuestionArray {
-    _id?: string
-    text: string
-    options: Answer[]
+  _id?: string;
+  text: string;
+  options: Answer[];
 }
-
 
 export interface GroupMember {
-    _id?: string;
-    userUid: string;   
-    groupId: string;
-    groupName: Group;
-    memberName: string;
-    birthday:string;
-    answers: string;
+  _id?: ObjectId;
+  userUid: string;
+  groupId: string;
+  groupName: Group;
+  memberName: string;
+  favoriteColor: string;
+  birthday: string;
+  answers: string;
 }
 
-
 export interface Group {
-    _id?:  ObjectId;
-    name: string;
-    adminUid?: string;
-    profileQuestions: string;
+  _id?: ObjectId;
+  name: string;
+  adminUid?: string;
+  profileQuestions: string;
 }
