@@ -74,4 +74,20 @@ routes.post("/groups", async (req, res) => {
   }
 });
 
+routes.post("/group-members", async (req, res) => {
+  const newMember: GroupMember = req.body;
+  try {
+    const client = await getClient();
+    const result = await client
+      .db()
+      .collection<GroupMember>("groupmembers")
+      .insertOne(newMember);
+    newMember._id = result.insertedId;
+    res.status(201);
+    res.json(newMember);
+  } catch (err) {
+    console.error("ERROR", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 export default routes;
