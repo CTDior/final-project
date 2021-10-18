@@ -44,10 +44,14 @@ routes.get("/groups/:id", async (req, res) => {
 
 routes.get("/group-members", async (req, res) => {
   const groupId: string = req.query.groupId as string;
+  const userUid: string = req.query.userUid as string;
   let query: any = {}; // What does this do?
 
   if (groupId) {
     query = { groupId: groupId };
+  }
+  if (userUid) {
+    query = { userUid: userUid };
   }
 
   try {
