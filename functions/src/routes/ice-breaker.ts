@@ -101,4 +101,49 @@ routes.post("/group-members", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+routes.put("/groups/:id", async (req, res) => {
+  const id = req.params.id;
+  const group = req.body as Group;
+  delete group._id;
+  try {
+    const client = await getClient();
+    const result = await client
+      .db()
+      .collection<Group>("groups")
+      .replaceOne({ _id: new ObjectId(id) }, group);
+    if (result.modifiedCount === 0) {
+      res.status(404).json({ message: "Not Found" });
+    } else {
+      group._id = new ObjectId(id);
+      res.json(group);
+    }
+  } catch (err) {
+    console.error("FAIL", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+routes.put("/group-members/:id", async (req, res) => {
+  const id = req.params.id;
+  const groupMember = req.body as GroupMember;
+  delete groupMember._id;
+  try {
+    const client = await getClient();
+    const result = await client
+      .db()
+      .collection<GroupMember>("groupmembers")
+      .replaceOne({ _id: new ObjectId(id) }, groupMember);
+    if (result.modifiedCount === 0) {
+      res.status(404).json({ message: "Not Found" });
+    } else {
+      groupMember._id = new ObjectId(id);
+      res.json(groupMember);
+    }
+  } catch (err) {
+    console.error("FAIL", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default routes;

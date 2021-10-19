@@ -22,8 +22,15 @@ export interface GroupMember {
 }
 
 export interface Group {
+  [x: string]: any;
   _id?: ObjectId;
   name: string;
   adminUid?: string;
   profileQuestions: string;
+}
+
+export interface Question {
+  _id?: string;
+  text: string;
+  options: string[];
 }
